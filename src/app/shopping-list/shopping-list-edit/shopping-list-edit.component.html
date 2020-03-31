@@ -1,25 +1,30 @@
 <div class="row">
     <div class="col-sm-12">
-        <form>
-
+        <form #f="ngForm" (ngSubmit)="ingridientAdd(f)" >
             <div class="row">
                 <div class="col-sm-5 form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control">
+                    <input type="text" id="name" name="name" ngModel class="form-control" required>
 
                 </div>
                 <div class="col-sm-2 form-group">
                     <label for="amount">Amount</label>
-                    <input type="number" id="amount" class="form-control">
+                    <input 
+                    type="number" 
+                    id="amount" 
+                    name="amount" 
+                    ngModel class="form-control" 
+                    required
+                    pattern="^[1-9][0-9]*$">
 
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12">
-                    <button class="btn btn-success" type="submit">Add</button>
-                    <button class="btn btn-danger" type="button">Delete</button>
-                    <button class="btn btn-info" type="button">Clear</button>
+                    <button class="btn btn-success" type="submit" [disabled]="f.invalid">{{editMode?"Update" : "Add"}}</button>
+                    <button *ngIf="editMode"class="btn btn-danger" type="button" (click)="onDelete()">Delete</button>
+                    <button class="btn btn-info" type="button" (click)="onClear()">Clear</button>
                 </div>
             </div>
 

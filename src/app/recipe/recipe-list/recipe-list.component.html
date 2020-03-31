@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-      <button class="btn btn-success">
+      <button class="btn btn-success" (click)="newRecipe()">
           New Recipe
       </button>
 
@@ -11,17 +11,8 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <a href="" class="list-group-item clearfix" *ngFor="let item of recipeArray">
-        <div class="pull-left">
-            <h4 class="list-group-item-heading">{{item.name}}</h4>
-            <p class="list-group-item-text">{{item.description}}</p>
-
-        </div>
-        <span class="pull-right">
-            <img  src="{{item.imagePath}}"  alt="#" class="img-resonsive" style="max-height: 50px;">
-        </span>
-        </a>
-        <app-recipe-item></app-recipe-item>
+   
+        <app-recipe-item *ngFor="let recipeEl of recipeArray; let i = index" [index]="i" [recipe]="recipeEl"></app-recipe-item>
     </div>
 </div>
 

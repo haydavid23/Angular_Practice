@@ -1,15 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {HttpClientModule} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {StoreModule} from '@ngrx/store'
 import { HeaderComponent } from './header/header.component';
-import { RecipeComponent } from './recipe/recipe.component';
-import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipe/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingListEditComponent } from './shopping-list/shopping-list-edit/shopping-list-edit.component';
+import { SharedModule } from './Shared/share.module';
+import { CoreModule } from './core.module';
+import { LogginService } from './loggin.service';
+import * as fromAppReducer from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './Auth/auth.effects';
+import { RecipeEffects } from './recipe/store/recipe.effects';
+
+
+
 
 
 
@@ -17,19 +22,23 @@ import { ShoppingListEditComponent } from './shopping-list/shopping-list-edit/sh
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    RecipeComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingListEditComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    StoreModule.forRoot(fromAppReducer.AppReducer),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
+    SharedModule,
+    CoreModule
   ],
-  providers: [],
+
+  providers:[
+    LogginService
+  ],
+ 
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
