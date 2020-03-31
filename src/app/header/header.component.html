@@ -4,24 +4,33 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" (click)="navegation('Recipe')">Recipe <span class="sr-only">(current)</span></a>
+      <ul class="navbar-nav navbar-right">
+        <li *ngIf="isAuthenticate">
+          <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" (click)="navegation('Shopping List')">Shopping List</a>
+        <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticate">
+          <a  class="nav-link" routerLink="/recipes" >Recipe <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" >
+          <a class="nav-link" routerLink="/shopping-list" >Shopping List</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticate" >
+          <a class="nav-link" routerLink="/auth" >Authenticate_testsss</a>
         </li>
       
       </ul>
-      <div class="dropdown ml-auto">
+      <div class="dropdown ml-auto" *ngIf="isAuthenticate">
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Manage
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+        <ul class="dropdown-menu" >
+          <li><a class="dropdown-item" style="cursor: pointer;"(click)="fetchData()" >Fetch</a></li>
+         <li><a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save</a>
+         </li> 
+        </ul>
+
+
+      
       </div>
     </div>
   </nav>
